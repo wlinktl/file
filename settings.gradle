@@ -1,0 +1,5 @@
+rootProject.name = 'migz'
+
+include 'migz'
+include 'mzip'
+include 'munzip'
