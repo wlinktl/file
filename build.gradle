@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 java {
@@ -27,6 +28,8 @@ tasks.withType(Test) {
         showStandardStreams = true
     }
 }
+
+mainClassName = 'com.linkedin.migz.MiGzBenchmark'
 
 
 
