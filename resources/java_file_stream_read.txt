@@ -1,0 +1,34 @@
+Java provides several streaming approaches specifically designed for processing very large files (>2GB). Here are the main classes and techniques:
+Core Java Streaming Classes for Large Files
+1. NIO2 Files.lines() - Best for Text Files
+
+// Most efficient for large text files
+try (Stream<String> lines = Files.lines(Paths.get("largefile.txt"))) {
+    lines.filter(line -> line.contains("pattern"))
+         .map(String::toUpperCase)
+         .forEach(System.out::println);
+}
+
+2. FileChannel with MappedByteBuffer - Best for Binary Files
+
+gzip is binary file
+
+try (RandomAccessFile file = new RandomAccessFile("largefile.dat", "r");
+     FileChannel channel = file.getChannel()) {
+    
+    long fileSize = channel.size();
+    long position = 0;
+    int bufferSize = 1024 * 1024; // 1MB chunks
+    
+    while (position < fileSize) {
+        long remaining = fileSize - position;
+        int mapSize = (int) Math.min(bufferSize, remaining);
+        
+        MappedByteBuffer buffer = channel.map(
+            FileChannel.MapMode.READ_ONLY, position, mapSize);
+        
+        // Process buffer
+        processBuffer(buffer);
+        position += mapSize;
+    }
+}

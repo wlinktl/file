@@ -20,4 +20,5 @@ test-output/
 gradlew.bat
 gradlew
 gradle/
+**/*.gz
 
