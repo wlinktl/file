@@ -85,11 +85,49 @@ public class AdvancedGzipDecompressor implements AutoCloseable {
                 throw new IOException("Invalid GZIP file: missing or invalid header");
             }
             
-            // Skip header
-            buffer.position(header.length);
+            // Skip header by reading it (buffer position automatically advances)
+            // No need to explicitly set position since readGzipHeaderFromBuffer already consumed the header
             
             // Decompress the rest
             decompressBufferToStream(buffer, bos);
+        }
+    }
+    
+    /**
+     * Java 8 compatible alternative that doesn't use buffer.position().
+     */
+    private void decompressWithMemoryMappingJava8Compatible(Path inputPath, Path outputPath) throws IOException {
+        try (FileInputStream fis = new FileInputStream(inputPath.toFile());
+             BufferedInputStream bis = new BufferedInputStream(fis, BUFFER_SIZE);
+             FileOutputStream fos = new FileOutputStream(outputPath.toFile());
+             BufferedOutputStream bos = new BufferedOutputStream(fos, BUFFER_SIZE)) {
+            
+            // Read GZIP header first
+            byte[] header = new byte[10];
+            int headerBytesRead = bis.read(header);
+            if (headerBytesRead != 10) {
+                throw new IOException("Invalid GZIP file: incomplete header");
+            }
+            
+            // Check GZIP magic bytes
+            if (header[0] != (byte) 0x1f || header[1] != (byte) 0x8b) {
+                throw new IOException("Invalid GZIP file: missing magic bytes");
+            }
+            
+            // Check compression method (should be 8 for deflate)
+            if (header[2] != 8) {
+                throw new IOException("Invalid GZIP file: unsupported compression method");
+            }
+            
+            // Decompress the rest using standard GZIPInputStream
+            try (GZIPInputStream gzis = new GZIPInputStream(bis, BUFFER_SIZE)) {
+                byte[] buffer = new byte[BUFFER_SIZE];
+                int bytesRead;
+                
+                while ((bytesRead = gzis.read(buffer)) != -1) {
+                    bos.write(buffer, 0, bytesRead);
+                }
+            }
         }
     }
     
