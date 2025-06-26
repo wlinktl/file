@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.*;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
@@ -237,7 +238,7 @@ public class GzipDecompressionBenchmark {
             Path file2 = outputPath.resolve(files[i]);
             
             if (Files.exists(file1) && Files.exists(file2)) {
-                boolean identical = Files.mismatch(file1, file2) == -1;
+                boolean identical = FileUtils.filesAreIdentical(file1, file2);
                 System.out.printf("%s vs %s: %s%n", 
                     files[0], files[i], identical ? "✅ IDENTICAL" : "❌ DIFFERENT");
                 allIdentical = allIdentical && identical;

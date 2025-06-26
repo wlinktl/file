@@ -216,8 +216,8 @@ public class FastGzipDecompressor implements AutoCloseable {
         System.out.println("Single-threaded: " + time3 + " ms");
         
         // Verify files are identical
-        boolean identical1 = Files.mismatch(Paths.get(output1), Paths.get(output2)) == -1;
-        boolean identical2 = Files.mismatch(Paths.get(output1), Paths.get(output3)) == -1;
+        boolean identical1 = FileUtils.filesAreIdentical(Paths.get(output1), Paths.get(output2));
+        boolean identical2 = FileUtils.filesAreIdentical(Paths.get(output1), Paths.get(output3));
         
         System.out.println("Files identical (1&2): " + identical1);
         System.out.println("Files identical (1&3): " + identical2);

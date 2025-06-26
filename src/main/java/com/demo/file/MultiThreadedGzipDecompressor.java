@@ -1,3 +1,5 @@
+package com.demo.file;
+
 import java.io.*;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
@@ -93,11 +95,12 @@ public class MultiThreadedGzipDecompressor {
             Future<byte[]>[] futures = new Future[numChunks];
             
             for (int i = 0; i < numChunks; i++) {
-                long chunkStart = header.length + (i * chunkSize);
-                int chunkLength = (int) Math.min(chunkSize, remainingBytes - (i * chunkSize));
+                final int chunkIndex = i;
+                final long chunkStart = header.length + (i * chunkSize);
+                final int chunkLength = (int) Math.min(chunkSize, remainingBytes - (i * chunkSize));
                 
                 futures[i] = executor.submit(() -> 
-                    processChunk(inputPath, chunkStart, chunkLength, i));
+                    processChunk(inputPath, chunkStart, chunkLength, chunkIndex));
             }
             
             // Collect results in order
@@ -427,11 +430,9 @@ public class MultiThreadedGzipDecompressor {
             }
             
             // Verify files are identical
-            if (Files.exists(Paths.get(singleThreadedOutput))) {
-                boolean identical = Files.mismatch(Paths.get(outputFile), Paths.get(singleThreadedOutput)) == -1;
-                System.out.println("Files identical: " + identical);
-                Files.deleteIfExists(Paths.get(singleThreadedOutput));
-            }
+            boolean identical = FileUtils.filesAreIdentical(Paths.get(outputFile), Paths.get(singleThreadedOutput));
+            System.out.println("Files identical: " + identical);
+            Files.deleteIfExists(Paths.get(singleThreadedOutput));
             
             decompressor.close();
             
