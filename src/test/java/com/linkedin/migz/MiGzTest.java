@@ -126,12 +126,16 @@
      assertTrue(ForkJoinPool.commonPool().awaitQuiescence(5, TimeUnit.SECONDS)); // make sure threads are idle
    }
  
-   private static void copyShakestream(OutputStream target) throws IOException {
-     try (InputStream shakestream = MiGzTest.class.getResourceAsStream("/shakespeare.tar")) {
+   private static void copyResourceToStream(String resourcePath, OutputStream target) throws IOException {
+     try (InputStream inputStream = MiGzTest.class.getResourceAsStream(resourcePath)) {
+       if (inputStream == null) {
+         throw new IOException("Resource '" + resourcePath + "' not found in classpath");
+       }
+       
        byte[] buffer = new byte[1024 * 16];
        int read;
- 
-       while ((read = shakestream.read(buffer)) > 0) {
+
+       while ((read = inputStream.read(buffer)) > 0) {
          target.write(buffer, 0, read);
        }
      }
@@ -141,7 +145,7 @@
    public void decompressionSpeedTest() throws IOException {
      ByteArrayOutputStream baos = new ByteArrayOutputStream();
      try (MiGzOutputStream mzos = new MiGzOutputStream(baos).setCompressionLevel(Deflater.DEFAULT_COMPRESSION)) {
-       copyShakestream(mzos);
+       copyResourceToStream("/test_1.gz", mzos);
      }
  
      long time = System.currentTimeMillis();
