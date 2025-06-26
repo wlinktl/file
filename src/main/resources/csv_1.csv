@@ -1,0 +1,31 @@
+id,name,email,age,city,country,occupation,salary,department,hire_date
+1,John Smith,john.smith@email.com,32,New York,USA,Software Engineer,85000,Engineering,2020-01-15
+2,Jane Doe,jane.doe@email.com,28,San Francisco,USA,Data Scientist,92000,Data Science,2019-03-22
+3,Mike Johnson,mike.johnson@email.com,35,Chicago,USA,Product Manager,95000,Product,2018-07-10
+4,Sarah Wilson,sarah.wilson@email.com,29,Boston,USA,UX Designer,78000,Design,2021-02-14
+5,David Brown,david.brown@email.com,31,Seattle,USA,DevOps Engineer,88000,Engineering,2020-09-05
+6,Lisa Garcia,lisa.garcia@email.com,27,Austin,USA,Frontend Developer,82000,Engineering,2021-01-20
+7,Tom Anderson,tom.anderson@email.com,33,Denver,USA,Backend Developer,87000,Engineering,2019-11-12
+8,Emily Davis,emily.davis@email.com,26,Portland,USA,QA Engineer,75000,Quality Assurance,2021-04-08
+9,Chris Lee,chris.lee@email.com,30,Atlanta,USA,Sales Manager,90000,Sales,2018-12-03
+10,Amanda White,amanda.white@email.com,34,Miami,USA,Marketing Specialist,72000,Marketing,2020-06-18
+11,Robert Taylor,robert.taylor@email.com,29,Dallas,USA,Business Analyst,80000,Business,2021-03-25
+12,Jessica Martinez,jessica.martinez@email.com,31,Phoenix,USA,HR Specialist,68000,Human Resources,2019-08-30
+13,Kevin Thompson,kevin.thompson@email.com,28,Las Vegas,USA,Financial Analyst,85000,Finance,2020-12-07
+14,Rachel Green,rachel.green@email.com,32,Orlando,USA,Operations Manager,92000,Operations,2018-05-14
+15,Daniel Clark,daniel.clark@email.com,27,Nashville,USA,Content Writer,65000,Marketing,2021-07-22
+16,Michelle Lewis,michelle.lewis@email.com,30,Charlotte,USA,Customer Success,72000,Customer Support,2020-03-11
+17,Andrew Hall,andrew.hall@email.com,33,Indianapolis,USA,Project Manager,88000,Project Management,2019-10-05
+18,Stephanie Allen,stephanie.allen@email.com,29,Columbus,USA,Research Analyst,78000,Research,2021-05-16
+19,Ryan Young,ryan.young@email.com,31,Detroit,USA,Supply Chain Manager,86000,Supply Chain,2020-08-28
+20,Nicole King,nicole.king@email.com,26,Memphis,USA,Legal Assistant,62000,Legal,2021-09-03
+21,Matthew Wright,matthew.wright@email.com,34,Baltimore,USA,Network Engineer,89000,IT,2018-11-20
+22,Ashley Lopez,ashley.lopez@email.com,28,Fort Worth,USA,Event Coordinator,68000,Events,2020-04-12
+23,James Hill,james.hill@email.com,32,El Paso,USA,Logistics Coordinator,74000,Logistics,2019-12-09
+24,Lauren Scott,lauren.scott@email.com,29,Seattle,USA,Graphic Designer,76000,Design,2021-01-15
+25,Christopher Green,christopher.green@email.com,30,Denver,USA,Security Analyst,82000,Security,2020-07-22
+26,Amber Adams,amber.adams@email.com,27,Washington,USA,Public Relations,71000,PR,2021-06-08
+27,Joshua Baker,joshua.baker@email.com,33,Minneapolis,USA,Database Administrator,87000,IT,2019-02-14
+28,Brittany Gonzalez,brittany.gonzalez@email.com,28,Arlington,USA,Training Coordinator,69000,Training,2020-10-30
+29,Nathan Nelson,nathan.nelson@email.com,31,Oakland,USA,Facilities Manager,81000,Facilities,2019-05-18
+30,Samantha Carter,samantha.carter@email.com,29,Raleigh,USA,Compliance Officer,75000,Compliance,2021-08-25 

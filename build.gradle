@@ -29,7 +29,7 @@ tasks.withType(Test) {
     }
 }
 
-mainClassName = 'com.linkedin.migz.MiGzBenchmark'
+//mainClassName = 'com.linkedin.migz.MiGzBenchmark'
 
 
 

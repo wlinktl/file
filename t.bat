@@ -1,0 +1,1 @@
+gradlew test --tests "com.linkedin.migz.MiGzTest.testDecompressTestFile"
