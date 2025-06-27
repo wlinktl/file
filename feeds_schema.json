@@ -1,0 +1,232 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "File Processing Configuration",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Name of the configuration"
+      },
+      "active": {
+        "type": "boolean",
+        "description": "Whether this configuration is active",
+        "default": true
+      },
+      "layer": {
+        "type": "string",
+        "description": "Layer identifier"
+      },
+      "logs-uri": {
+        "type": "string",
+        "description": "URI for logs"
+      },
+      "file-watcher": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "File watcher name"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether the file watcher is active"
+          },
+          "interval": {
+            "type": "integer",
+            "description": "Polling interval in seconds",
+            "minimum": 1
+          },
+          "inbound-uri": {
+            "type": "string",
+            "description": "URI for inbound files"
+          },
+          "preprocess-uri": {
+            "type": "string",
+            "description": "URI for preprocessing"
+          },
+          "monitor-uri": {
+            "type": "string",
+            "description": "URI for monitoring"
+          },
+          "transaction": {
+            "type": "object",
+            "properties": {
+              "commit": {
+                "type": "object",
+                "properties": {
+                  "success-uri": {
+                    "type": "string",
+                    "description": "URI for successful commits"
+                  }
+                },
+                "required": ["success-uri"]
+              },
+              "rollback": {
+                "type": "object",
+                "properties": {
+                  "failure-uri": {
+                    "type": "string",
+                    "description": "URI for failed transactions"
+                  }
+                },
+                "required": ["failure-uri"]
+              }
+            },
+            "required": ["commit", "rollback"]
+          }
+        },
+        "required": ["name", "active", "interval", "inbound-uri", "preprocess-uri", "monitor-uri", "transaction"]
+      },
+      "inbound-datasets": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Dataset name"
+            },
+            "active": {
+              "type": "boolean",
+              "description": "Whether this dataset is active"
+            },
+            "pattern": {
+              "type": "string",
+              "description": "File pattern to match"
+            },
+            "type": {
+              "type": "string",
+              "description": "Dataset type"
+            },
+            "module": {
+              "type": "string",
+              "description": "Processing module"
+            },
+            "format": {
+              "type": "string",
+              "description": "File format"
+            },
+            "compression": {
+              "type": "string",
+              "description": "Compression type",
+              "enum": ["gzip", "zip", "none", null]
+            },
+            "delimiter": {
+              "type": "string",
+              "description": "Field delimiter"
+            },
+            "trailing-delimeter": {
+              "type": "boolean",
+              "description": "Whether there's a trailing delimiter"
+            },
+            "add-columns-csv": {
+              "type": "string",
+              "description": "Additional columns as CSV"
+            },
+            "cob-script": {
+              "type": "string",
+              "description": "COBOL script reference"
+            },
+            "text-header": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Header type"
+                },
+                "token": {
+                  "type": "string",
+                  "description": "End of header token"
+                },
+                "source-name-position": {
+                  "type": "integer",
+                  "description": "Position of source name in header",
+                  "minimum": 0
+                },
+                "cob-position": {
+                  "type": "integer",
+                  "description": "Position of COBOL reference in header",
+                  "minimum": 0
+                },
+                "snapshot-position": {
+                  "type": "integer",
+                  "description": "Position of snapshot date in header",
+                  "minimum": 0
+                },
+                "snapshot-format": {
+                  "type": "string",
+                  "description": "Format of snapshot date"
+                },
+                "record-count-position": {
+                  "type": "integer",
+                  "description": "Position of record count in header",
+                  "minimum": 0
+                },
+                "column-count-position": {
+                  "type": "integer",
+                  "description": "Position of column count in header",
+                  "minimum": 0
+                },
+                "column-names-present": {
+                  "type": "boolean",
+                  "description": "Whether column names are present in header"
+                },
+                "frequency-position": {
+                  "type": "integer",
+                  "description": "Position of frequency indicator in header",
+                  "minimum": 0
+                }
+              },
+              "required": ["type", "token"]
+            },
+            "text-trailer": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "description": "End of file token"
+                }
+              },
+              "required": ["token"]
+            },
+            "output": {
+              "type": "object",
+              "properties": {
+                "hive": {
+                  "type": "object",
+                  "properties": {
+                    "table-name": {
+                      "type": "string",
+                      "description": "Target Hive table name"
+                    },
+                    "partitions": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "description": "Partition specifications"
+                    }
+                  },
+                  "required": ["table-name"]
+                },
+                "done-file-uri": {
+                  "type": "string",
+                  "description": "URI for done files"
+                },
+                "done-file-type": {
+                  "type": "string",
+                  "description": "Extension for done files"
+                }
+              },
+              "required": ["hive", "done-file-uri", "done-file-type"]
+            }
+          },
+          "required": ["name", "active", "pattern", "type", "module", "format", "output"]
+        }
+      }
+    },
+    "required": ["name", "file-watcher", "inbound-datasets"]
+  }
+}
